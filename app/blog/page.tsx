@@ -1,20 +1,22 @@
 
+import BlogPosts from '@/components/BlogPost/BlogPosts';
 import { getPosts } from '@/lib/posts'
+import { Suspense } from 'react';
 
-export default async function Blog(){
+export default function Blog(){
 
-    const posts = await getPosts();
+    // kada saljes ovako podakte ne smes da awaitas jer saljes promise na clienta
+    const posts = getPosts();
+
+    if (!posts) {
+        return <div>No posts</div>
+    }
 
     return (
         <>
-            {posts.map((p) => (
-            <div key={p.id}>
-                <h2>{p.title}</h2>
-                <p>{p.content}</p>
-                <p>Author ID: {p.userId}</p>
-                <p>Created At: {new Date(p.createdAt).toLocaleString()}</p>
-            </div>
-            ))}
+            <Suspense fallback={<div>Loading...</div>}>
+                <BlogPosts posts={posts} />
+            </Suspense>
         </>
     )
 }

@@ -2,17 +2,14 @@ import { db } from "@/lib";
 import { postsTable, usersTable } from "@/lib/schema";
 import Link from "next/link";
 import styles from "./page.module.css";
+import HoverLink from "@/components/Link/Link";
 
 export default async function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        {/* mozes napraviti client componentu gde se stavi state za prefetch i na hover da se stavi da je true */}
-        {/* what is hydration??? */}
-        {/* prefetch (rute koje su u <Link> komponenti) i streaming (loader.tsx) */}
-        <Link prefetch={false} className={styles.primary} href={"/blog"}>
-          Blog
-        </Link>
+        <HoverLink href={"/blog"}>Blog</HoverLink>
+
         <Link className={styles.primary} href={"/blog/1"}>
           Blog 1
         </Link>

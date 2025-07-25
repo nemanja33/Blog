@@ -14,8 +14,6 @@ export default async function BlogPost({
   const { slug } = await params;
   const post = await getPost(Number(slug));
 
-  console.log(post);
-
   return (
     <>
       <h1>{post?.title}</h1>
